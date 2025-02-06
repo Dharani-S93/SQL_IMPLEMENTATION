@@ -1,4 +1,6 @@
 # SQL_IMPLEMENTATION
+
+````
 -- create a db
  create database EmployeeDB;
  
@@ -125,3 +127,6 @@ and salary between 85000 and 90000;
 
 -- truncate table
 truncate details;
+
+
+``````````
