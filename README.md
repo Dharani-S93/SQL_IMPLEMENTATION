@@ -1,15 +1,14 @@
-# SQL_IMPLEMENTATION
+# SQL_IMPLEMENTATION FOR EMPLOYEE DETAILS:
 
 ````
--- create a db
- create database EmployeeDB;
- 
- -- use that db
- use EmployeeDB;
- 
- -- create table detail of an employee
- 
- CREATE TABLE Details (
+-- Create database
+CREATE DATABASE EmployeeDB;
+
+-- Use the database
+USE EmployeeDB;
+
+-- Create Employee Details table
+CREATE TABLE Details (
     Employee_Id VARCHAR(100),
     Employee_name VARCHAR(100),
     dateofBirth DATE,
@@ -21,16 +20,16 @@
     Department VARCHAR(100),
     Employee_mail_id VARCHAR(100),
     Employee_status VARCHAR(100),
-    Timestamp date default current_timestamp,
+    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Phone_number VARCHAR(10)
 );
 
--- display the result
-select * from details;
+-- Display the table structure
+DESC Details;
 
--- insert values to table
-insert into Details (Employee_Id, Employee_name, dateofBirth, DateOfjoining, Salary, Bonus, City, Address, Department, Employee_mail_id, Employee_status, Phone_number)
-values
+-- Insert values into the table
+INSERT INTO Details (Employee_Id, Employee_name, dateofBirth, DateOfjoining, Salary, Bonus, City, Address, Department, Employee_mail_id, Employee_status, Phone_number)
+VALUES
 ('ds001', 'Sharanya', '1985-05-15', '2010-08-23', 70000, 5000, 'Delhi', '1234 Rajpath Rd', 'HR', 'sha2005ranya@gmail.com', 'Active', '9876543210'),
 ('ds002', 'Sujitha', '1990-03-12', '2015-07-30', 75000, 6000, 'Mumbai', '5678 Bandra East', 'Finance', 'suji@gmail.com', 'Active', '9123456789'),
 ('ds003', 'Parkavi', '1982-11-22', '2008-05-10', 80000, 7000, 'Bangalore', '9101 MG Road', 'IT', 'paru@gmail.com', 'Inactive', '9345678901'),
@@ -42,91 +41,57 @@ values
 ('ds009', 'Santhosh', '1984-01-10', '2009-09-07', 77000, 5200, 'Lucknow', '5678 Hazratganj', 'Support', 'sandy@gmail.com', 'Active', '9123987456'),
 ('ds010', 'Praveen', '1992-12-20', '2016-10-17', 73000, 4800, 'Ahmedabad', '6789 Navrangpura', 'Finance', 'bheem@gmail.com', 'Active', '9384765120');
 
--- change column name
- alter table Details
-change column  Employee_name First_name varchar(20);
+-- Change column name from Employee_name to First_name
+ALTER TABLE Details
+CHANGE COLUMN Employee_name First_name VARCHAR(100);
 
--- add column to existing table
-alter table Details
-add column Age int ;
+-- Add new column Age
+ALTER TABLE Details
+ADD COLUMN Age INT;
 
--- update details
-update Details
-set Age=19
-where Employee_id='ds001';
-update Details
-set Age=20
-where Employee_id='ds002';
-update Details
-set Age=19
-where Employee_id='ds003';
-update Details
-set Age=20
-where Employee_id='ds004';
-update Details
-set Age=20
-where Employee_id='ds005';
-update Details
-set Age=20
-where Employee_id='ds006';
-update Details
-set Age=20
-where Employee_id='ds007';
-update Details
-set Age=20
-where Employee_id='ds008';
-update Details
-set Age=19
-where Employee_id='ds009';
-update Details
-set Age=19
-where Employee_id='ds010';
+-- Update Age based on date of birth
+UPDATE Details
+SET Age = TIMESTAMPDIFF(YEAR, dateofBirth, CURDATE());
 
--- drop column
-alter table Details
-drop column Employee_status ;
+-- Drop Employee_status column
+ALTER TABLE Details
+DROP COLUMN Employee_status;
 
--- delete  a record
-delete from Details where Employee_id='ds006';
+-- Delete a record
+DELETE FROM Details WHERE Employee_Id = 'ds006';
 
--- display name ends with a
-select * from details where first_name like '%a';
+-- Queries:
 
--- salary more than 70000
-select * from details
-where salary>70000;
+-- Display names ending with 'a'
+SELECT * FROM Details WHERE First_name LIKE '%a';
 
--- city chennai
-select * from details
-where city = "chennai";
+-- Employees with salary more than 70,000
+SELECT * FROM Details WHERE Salary > 70000;
 
--- age 19 and dep s finance
-select * from details
-where age= 19 and department ='Finance';
+-- Employees from Chennai
+SELECT * FROM Details WHERE City = 'Chennai';
 
--- count of salary more than 90000
-select count(*) from details
-where  salary>90000;
+-- Employees aged 19 in the Finance department
+SELECT * FROM Details WHERE Age = 19 AND Department = 'Finance';
 
--- average age in dept finance
-select avg(age) from details
-where department ='finance';
+-- Count of employees with salary more than 90,000
+SELECT COUNT(*) FROM Details WHERE Salary > 90000;
 
--- aggregate function
-select max(salary) from details ;
-select min(salary) from details;
+-- Average age in Finance department
+SELECT AVG(Age) FROM Details WHERE Department = 'Finance';
 
--- name start with A
-select * from details
-where  first_name like "A%";
+-- Maximum and Minimum Salary
+SELECT MAX(Salary) AS Highest_Salary FROM Details;
+SELECT MIN(Salary) AS Lowest_Salary FROM Details;
 
--- name middle in A  and salary between 85000 and 90000
-select *  from details
-where first_name like '%a%'
-and salary between 85000 and 90000;
+-- Employees whose name starts with 'A'
+SELECT * FROM Details WHERE First_name LIKE 'A%';
 
--- truncate table
-truncate details;
+-- Employees with 'A' in the middle of their name and salary between 85,000 and 90,000
+SELECT * FROM Details WHERE First_name LIKE '%a%' AND Salary BETWEEN 85000 AND 90000;
+
+-- Truncate the table (Deletes all records but keeps structure)
+TRUNCATE TABLE Details;
 
 
 ``````````
